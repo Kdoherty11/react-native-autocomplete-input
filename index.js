@@ -57,7 +57,8 @@ class AutoComplete extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(props.data),
-      showResults: props.data && props.data.length > 0
+      showResults: props.data && props.data.length > 0,
+      input: props.defaultValue || '',
     };
   }
 
@@ -88,6 +89,7 @@ class AutoComplete extends Component {
     const { dataSource } = this.state;
     return (
       <ListView
+        key={this.state.input}
         dataSource={dataSource}
         keyboardShouldPersistTaps={true}
         renderRow={renderItem}
@@ -110,12 +112,14 @@ class AutoComplete extends Component {
   }
 
   _renderTextInput() {
-    const { onEndEditing, renderTextInput, style } = this.props;
+    const { onEndEditing, onrenderTextInput, style } = this.props;
     const props = {
       style: [styles.input, style],
       ref: ref => (this.textInput = ref),
       onEndEditing: e =>
         this._showResults(false) || (onEndEditing && onEndEditing(e)),
+      onChangeText: t =>
+        this.setState({input: t}) || (onChangeText && onChangeText(t)),
       ...this.props
     };
 
