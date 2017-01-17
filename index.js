@@ -36,10 +36,10 @@ class AutoComplete extends Component {
      */
     renderItem: PropTypes.func,
     /**
-     * `renderSeperator` will be passed to the suggestions
+     * `renderSeparator` will be passed to the suggestions
      * list view to render a seperator
      */
-    renderSeperator: PropTypes.func,
+    renderSeparator: PropTypes.func,
     /**
      * `onShowResults` will be called when list is going to
      * show/hide results.
@@ -90,7 +90,7 @@ class AutoComplete extends Component {
   }
 
   _renderItems() {
-    const { listStyle, renderItem, renderSeperator } = this.props;
+    const { listStyle, renderItem, renderSeparator } = this.props;
     const { dataSource } = this.state;
     return (
       <ListView
@@ -99,7 +99,7 @@ class AutoComplete extends Component {
         keyboardShouldPersistTaps={true}
         renderRow={renderItem}
         style={[styles.list, listStyle]}
-        renderSeperator={renderSeperator}
+        renderSeparator={renderSeparator}
       />
     );
   }
